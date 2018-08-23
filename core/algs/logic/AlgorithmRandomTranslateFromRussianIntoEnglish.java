@@ -32,7 +32,7 @@ public final class AlgorithmRandomTranslateFromRussianIntoEnglish implements Abs
 	 * The method receives an input object {@link Word} and a variant of the translation of the user (Translation into English)
 	 */
 	@Override
-	public synchronized boolean inspect(final Word w,final String userTranslate) { 
+	public synchronized boolean inspect(final Word w, final String userTranslate) { 
 		if(userTranslate == null || userTranslate.length() == 0) return false;
 		if(w.getValue().compareToIgnoreCase(userTranslate) == 0) return true;
 		return false;

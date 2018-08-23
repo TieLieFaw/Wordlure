@@ -52,7 +52,7 @@ public final class MainWindow extends JFrame {
 		panel = new TranslatePanel(this);
 		add(panel, BorderLayout.CENTER);
 		
-		setResizable(false);
+		setResizable(true);
 		setTitle("Wordlure");
 		setSize(550, 400);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

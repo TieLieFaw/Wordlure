@@ -34,7 +34,7 @@ public final class AlgorithmTranslateFromEnglishIntoRussian implements AbstractT
 	 * The method receives an input object {@link Word} and a variant of the translation of the user (Translation into Russian)
 	 */
 	@Override
-	public synchronized boolean inspect(Word w, String userTranslate) {
+	public synchronized boolean inspect(Word w, final String userTranslate) {
 		if(userTranslate == null || userTranslate.length() == 0) return false;
 		if(w.getTranslate().compareToIgnoreCase(userTranslate) == 0) return true;
 		return false;

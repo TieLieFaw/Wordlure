@@ -78,7 +78,7 @@ class TranslatePanel extends JPanel{
 	}
 	
 	synchronized void startAlgorithmRandomTranslate(AbstractTranslateAlgorithms alg, DataDoublyLinkedList data) {
-		
+		translateField.requestFocusInWindow();
 		tempWord = null;
 		
 			try {
@@ -95,18 +95,19 @@ class TranslatePanel extends JPanel{
 				}else System.exit(0);
 				
 			}	finally {
-				partofspeech.setText(tempWord.getPartOfSpeech());
+				partofspeech.setText(tempWord.getPartOfSpeech() + ":");
 				
 				if(alg.getTypeOfAlgorithms().equals(TypeOfAlgorithms.RandomTranslateFromEnglishIntoRussian)) {
 					wordValue.setText(tempWord.getValue());
 				} else if(alg.getTypeOfAlgorithms().equals(TypeOfAlgorithms.RandomTranslateFromRussianIntoEnglish )) {
 					wordValue.setText(tempWord.getTranslate());
+					translateField.setText(tempWord.getValue().substring(0, 1)); 
 				}
 			}	
 	}
 	
 	synchronized void startAlgorithmTranslate(AbstractTranslateAlgorithms alg, DataDoublyLinkedList data) {
-		
+		translateField.requestFocusInWindow();
 		tempWord = null;
 		
 		try {
@@ -133,14 +134,14 @@ class TranslatePanel extends JPanel{
 				}
 				
 			} else System.exit(0);
-			
 		} finally {
-			partofspeech.setText(tempWord.getPartOfSpeech());
+			partofspeech.setText(tempWord.getPartOfSpeech() + ":");
 			
 			if(alg.getTypeOfAlgorithms().equals(TypeOfAlgorithms.TranslateFromEnglishIntoRussian)) {
 				wordValue.setText(tempWord.getValue());
 			} else if(alg.getTypeOfAlgorithms().equals(TypeOfAlgorithms.TranslateFromRussianIntoEnglish )) {
 				wordValue.setText(tempWord.getTranslate());
+				translateField.setText(tempWord.getValue().substring(0, 1)); 
 			}
 		}
 	}
@@ -150,7 +151,7 @@ class TranslatePanel extends JPanel{
 		public void actionPerformed(ActionEvent arg0) {
 			if(owner.getProgramLogic().getTypeOfAlgorithms().equals(TypeOfAlgorithms.RandomTranslateFromEnglishIntoRussian) ||
 					owner.getProgramLogic().getTypeOfAlgorithms().equals(TypeOfAlgorithms.TranslateFromEnglishIntoRussian)) {
-				if(owner.getProgramLogic().inspect(tempWord, translateField.getText())) {
+				if(owner.getProgramLogic().inspect(tempWord, translateField.getText().trim())) { 
 					StringBuilder sBuilder = new StringBuilder();
 					sBuilder.append("The Word: ");
 					sBuilder.append("'");
@@ -159,19 +160,23 @@ class TranslatePanel extends JPanel{
 					sBuilder.append(" was translated correctly");
 					isSuccessful.setText(sBuilder.toString());
 					isSuccessful.setForeground(Color.GREEN);
-				} else {
+				} else { 
 					StringBuilder sBuilder = new StringBuilder();
 					sBuilder.append("The Word: ");
 					sBuilder.append("'");
 					sBuilder.append(tempWord.getValue());
 					sBuilder.append("'");
-					sBuilder.append(" wasn't translated correctly");
+					sBuilder.append(" wasn't translated correctly.");
+					sBuilder.append("The correct translate is: ");
+					sBuilder.append("'");
+					sBuilder.append(tempWord.getValue());
+					sBuilder.append("'");
 					isSuccessful.setText(sBuilder.toString());
 					isSuccessful.setForeground(Color.RED);
 				}
 			} else if(owner.getProgramLogic().getTypeOfAlgorithms().equals(TypeOfAlgorithms.RandomTranslateFromRussianIntoEnglish) ||
 					owner.getProgramLogic().getTypeOfAlgorithms().equals(TypeOfAlgorithms.TranslateFromRussianIntoEnglish)) {
-				if(owner.getProgramLogic().inspect(tempWord, translateField.getText())) {
+				if(owner.getProgramLogic().inspect(tempWord, translateField.getText().trim())) { 
 					StringBuilder sBuilder = new StringBuilder();
 					sBuilder.append("The Word: ");
 					sBuilder.append("'");
@@ -180,13 +185,17 @@ class TranslatePanel extends JPanel{
 					sBuilder.append(" was translated correctly");
 					isSuccessful.setText(sBuilder.toString());
 					isSuccessful.setForeground(Color.GREEN);
-				} else {
+				} else { 
 					StringBuilder sBuilder = new StringBuilder();
 					sBuilder.append("The Word: ");
 					sBuilder.append("'");
 					sBuilder.append(tempWord.getTranslate());
 					sBuilder.append("'");
 					sBuilder.append(" wasn't translated correctly");
+					sBuilder.append("The correct translate is: ");
+					sBuilder.append("'");
+					sBuilder.append(tempWord.getValue());
+					sBuilder.append("'");
 					isSuccessful.setText(sBuilder.toString());
 					isSuccessful.setForeground(Color.RED);
 				}
